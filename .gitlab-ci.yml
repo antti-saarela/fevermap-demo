@@ -9,3 +9,21 @@ pages:
   only:
   - master
 
+before_script:
+  - apt-get update -qq
+  - apt-get install -qq git
+  # Setup SSH deploy keys
+  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$FEVERMAP_USER_SSH_PRIVATE_KEY")
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+deploy_dev:
+  type: deploy
+  environment:
+    name: dev
+    url: dev.fevermap.net
+  script:
+    - ssh fevermap@dev.fevermap.net -p 33100 "cd /var/www/fevermap && git checkout master && git pull origin master && cd fevermap-front && npm run build --dev"
+  only:
+    - master
