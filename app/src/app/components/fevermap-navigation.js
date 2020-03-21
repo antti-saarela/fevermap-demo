@@ -24,6 +24,16 @@ class FevermapNavigation extends LitElement {
         if (!this.currentViewObject) {
             this.currentViewObject = document.querySelector(this.currentView);
         }
+        this.handleReturningUser();
+    }
+
+    handleReturningUser() {
+        let latestEntry = JSON.parse(localStorage.getItem('LATEST_ENTRY'));
+        if (latestEntry) {
+            let dataEntryView = 'fevermap-data-entry';
+            this.currentView = dataEntryView;
+            this.transitionToNewView(dataEntryView, 2);
+        }
     }
 
     handleNavigationClick(e) {
