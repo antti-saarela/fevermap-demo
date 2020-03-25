@@ -66,3 +66,14 @@ To build the project, run `npm run build`
 1. Run `npm run build` in directory `app` so that the static files are generated in subdirectory `dist`.
 
 2. Copy `dist` to a web server (e.g. Nginx) and let it serve.
+
+
+### Custom environmental variables
+
+If you want to modify the `NODE_ENV` or `API_URL` variables of the app, you can easily modify them by calling the `npm run dev` and `npm run prod` scripts respectively.
+
+Example
+
+```
+npm run dev -- --env.NODE_ENV=foobar --env.API_URL=http://localhost:1234
+```
