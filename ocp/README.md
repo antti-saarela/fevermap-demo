@@ -20,6 +20,59 @@ Images are built once, and the URLs and some start options may be given them as
 environment variables and config map to make them adapt to different runtime
 locations.
 
+# Setting up test environment
+
+There are different ways of setting up instances onto OpenShift. The /ocp
+-directory contains yamls for different components. You can check the absolutely
+necessary ones from
+[/ocp/install.sh](https://gitlab.com/fevermap/fevermap/-/blob/master/ocp/install.sh).
+
+Absolutely easies way is to use the template. It asks you few parameters, and
+lets OpenShift bring up all the components. If you want to use GUI, import the
+template first (need admin for this):
+
+```curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/template-fevermap.yaml|oc create -n openshift```
+
+Then you'll find it from the OpenShift Catalog. It will ask you with parameters,
+and provides the samples.
+
+Another way is to provision it from command line. Here are two examples, the second
+one omits some parameters that are not necessary:
+
+```
+curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/template-fevermap.yaml| \
+  oc new-app \
+  -p NAME=test \
+  -p NAMESPACE=fever-template \
+  -p MEMORY_FRONT_LIMIT=512Mi \
+  -p MEMORY_API_LIMIT=512Mi \
+  -p MEMORY_MYSQL_LIMIT=512Mi \
+  -p VOLUME_CAPACITY=1Gi \
+  -p SOURCE_REPOSITORY_URL=https://gitlab.com/fevermap/fevermap.git \
+  -p SOURCE_REPOSITORY_REF=master \
+  -p APPLICATION_FRONT_DOMAIN=front.apps.ocp4.konttikoulu.fi \
+  -p APPLICATION_API_DOMAIN=api.apps.ocp4.konttikoulu.fi \
+  -p DATABASE_SERVICE_NAME=db \
+  -p DATABASE_NAME=feverdb \
+  -p DATABASE_USER=fever \
+  -p DATABASE_PASSWORD=fever \
+  -p DATABASE_ROOT_PASSWORD=feverr
+```
+
+from local file:
+
+```
+  oc new-app \
+  -f template-fevermap.yaml \
+  -p NAME=test \
+  -p NAMESPACE=fever-template \
+  -p SOURCE_REPOSITORY_URL=https://gitlab.com/fevermap/fevermap.git \
+  -p SOURCE_REPOSITORY_REF=master \
+  -p APPLICATION_FRONT_DOMAIN=front.apps.ocp4.ocp.ninja \
+  -p APPLICATION_API_DOMAIN=api.apps.ocp4.ocp.ninja
+```
+
+
 # Storage
 
 Both web frontend and API service are static images, which won't need persistent
