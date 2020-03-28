@@ -14,7 +14,7 @@ be individually scaled according to load. Each component has service for them
 (kubernetes service discovery/dns). This handles load balancing as well in case
 pods gets scaled up'n down.
 
-![app in ocp](https://gitlab.com/fevermap/fevermap/-/raw/feature-ocp-staging/ocp/ocp-app.png)
+![app in ocp](https://gitlab.com/fevermap/fevermap/-/raw/master/ocp/ocp-app.png)
 
 Images are built once, and the URLs and some start options may be given them as
 environment variables and config map to make them adapt to different runtime
