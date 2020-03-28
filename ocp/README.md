@@ -22,25 +22,24 @@ locations.
 
 # Setting up test environment
 
-There are different ways of setting up instances onto OpenShift. The /ocp
--directory contains yamls for different components. You can check the absolutely
-necessary ones from
-[/ocp/install.sh](https://gitlab.com/fevermap/fevermap/-/blob/master/ocp/install.sh).
-
-Absolutely easies way is to use the template. It asks you few parameters, and
+The easiest way is to use the template. It asks you few parameters, and
 lets OpenShift bring up all the components. If you want to use GUI, import the
 template first (need admin for this):
 
-```curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/template-fevermap.yaml|oc create -n openshift```
+```
+curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/template-fevermap.yaml|oc create -n openshift
+```
 
-Then you'll find it from the OpenShift Catalog. It will ask you with parameters,
-and provides the samples.
+After that you'll find it from the OpenShift Catalog. It will ask you with parameters,
+and provides the samples. See partial screenshot:
+
+![app in ocp](https://gitlab.com/fevermap/fevermap/-/raw/master/ocp/ocp-template.png)
 
 Another way is to provision it from command line. Here are two examples, the second
 one omits some parameters that are not necessary:
 
 ```
-curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/template-fevermap.yaml| \
+curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/template-fevermap-persistent.yaml| \
   oc new-app \
   -p NAME=test \
   -p NAMESPACE=fever-template \
@@ -62,16 +61,13 @@ curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/templa
 from local file:
 
 ```
-  oc new-app \
-  -f template-fevermap.yaml \
-  -p NAME=test \
+oc new-app \
+  -f template-fevermap-persistent.yaml \
+  -p NAME=fevermap \
   -p NAMESPACE=fever-template \
-  -p SOURCE_REPOSITORY_URL=https://gitlab.com/fevermap/fevermap.git \
-  -p SOURCE_REPOSITORY_REF=master \
-  -p APPLICATION_FRONT_DOMAIN=front.apps.ocp4.ocp.ninja \
-  -p APPLICATION_API_DOMAIN=api.apps.ocp4.ocp.ninja
+  -p APPLICATION_FRONT_DOMAIN=front.apps.ocp4.konttikoulu.fi \
+  -p APPLICATION_API_DOMAIN=api.apps.ocp4.konttikoulu.fi
 ```
-
 
 # Storage
 
