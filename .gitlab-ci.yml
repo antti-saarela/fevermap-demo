@@ -20,6 +20,8 @@ test:
   script:
     - apt-get update -qq && apt-get install -qq --no-install-recommends flake8 shellcheck
     - make test
+    - curl --verbose -O https://raw.githubusercontent.com/Seravo/gnitpick/master/gnitpick.py
+    - python3 ./gnitpick.py
 
 build-app:
   stage: build
