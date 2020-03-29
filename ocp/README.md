@@ -50,7 +50,8 @@ curl https://gitlab.com/fevermap/fevermap/-/blob/feature/ocp-template/ocp/templa
   -p SOURCE_REPOSITORY_URL=https://gitlab.com/fevermap/fevermap.git \
   -p SOURCE_REPOSITORY_REF=master \
   -p APPLICATION_FRONT_DOMAIN=front.apps.ocp4.konttikoulu.fi \
-  -p APPLICATION_API_DOMAIN=api.apps.ocp4.konttikoulu.fi \
+  -p APPLICATION_API_DOMAIN=front.apps.ocp4.konttikoulu.fi \
+  -p APPLICATION_API_PATH=/api \
   -p DATABASE_SERVICE_NAME=db \
   -p DATABASE_NAME=feverdb \
   -p DATABASE_USER=fever \
@@ -66,7 +67,8 @@ oc new-app \
   -p NAME=fevermap \
   -p NAMESPACE=fever-template \
   -p APPLICATION_FRONT_DOMAIN=front.apps.ocp4.konttikoulu.fi \
-  -p APPLICATION_API_DOMAIN=api.apps.ocp4.konttikoulu.fi
+  -p APPLICATION_API_DOMAIN=api.apps.ocp4.konttikoulu.fi \
+  -p APPLICATION_API_PATH=/api \
 ```
 
 # Storage

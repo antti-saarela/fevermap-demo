@@ -79,6 +79,10 @@ parameters:
     if left blank a value will be defaulted.
   displayName: Application API Hostname
   name: APPLICATION_API_DOMAIN
+- description: The exposed http path part that will route to the Fevermap API service,
+    can be left blank if no path is used. E.g. /api
+  displayName: Application API path
+  name: APPLICATION_API_PATH
 - description: GitLab trigger secret.  A difficult to guess string encoded as part
     of the webhook URL.  Not encrypted.
   displayName: GitLab Webhook Secret
@@ -437,7 +441,7 @@ objects:
     name: ${NAME}-api
   spec:
     host: ${APPLICATION_API_DOMAIN}
-    # path: /api
+    path: ${APPLICATION_API_PATH}
     port:
       targetPort: 9000-tcp
     # tls:
@@ -602,8 +606,8 @@ objects:
   data:
     window-settings.js: |+
       window.URLS = {
-          API_URL: '${APPLICATION_FRONT_DOMAIN}',
-          APP_URL: '${APPLICATION_API_DOMAIN}',
+          API_URL: 'http://${APPLICATION_API_DOMAIN}',
+          APP_URL: 'http://${APPLICATION_FRONT_DOMAIN}',
       };
 
   kind: ConfigMap
