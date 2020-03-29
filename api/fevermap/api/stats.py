@@ -7,6 +7,8 @@ from flask_restful import Resource
 from fevermap.db import db_session
 from fevermap.db.models.submission import Submission
 from fevermap.db.models.submitter import Submitter
+from fevermap.db.models.diagnoses import Diagnoses
+from fevermap.db.models.symptoms import Symptoms
 
 from flask import Flask
 app = Flask('fevermap')
