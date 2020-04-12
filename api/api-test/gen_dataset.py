@@ -2,7 +2,6 @@
 
 from random import seed, random, randint, getrandbits
 from pprint import pprint
-from datetime import datetime
 import time
 import copy
 import mysql.connector as mariadb
@@ -135,7 +134,7 @@ def create_user():
                  }
 
     # Creating random device id more than 1584649859812
-    user_data["device_id"] = randint(1584000000000, 1584000000000*100)
+    user_data["device_id"] = randint(1584000000000, 1584000000000 * 100)
 
     # Randomly selecting the gender
     if(get_rand_bool()):
@@ -179,7 +178,7 @@ def submit_record(submissions, randomizations_left):
         # Generating new submission based on the previous submissions
         data = copy.deepcopy(submissions[-1])
         # Generating timestamp: between 12 and 36 hours from the last one
-        data["timestamp_modified"] += 3600*randint(12, 36)
+        data["timestamp_modified"] += 3600 * randint(12, 36)
         # Cough can appear even if the temperature is normal
         if(randomizations_left["cough"] > 0):
             data["symptom_cough"] = get_rand_bool()
@@ -189,7 +188,7 @@ def submit_record(submissions, randomizations_left):
         temp = random()
         if(data["fever_status"]):
             # scaled temperature value = min + (value * (max - min))
-            data["fever_temp"] = 37.0 + (temp*(40-37.0))
+            data["fever_temp"] = 37.0 + (temp * (40 - 37.0))
             # Randomisations fo different symptoms and COVID19 diagnosis
             for k in ["diagnosed_covid19", "symptom_muscle_pain", "symptom_sore_throat", "symptom_difficult_to_breath"]:
                 if(randomizations_left[k] > 0):
@@ -197,7 +196,7 @@ def submit_record(submissions, randomizations_left):
                     randomizations_left[k] -= 1
         else:
             # scaled temperature value = min + (value * (max - min))
-            data["fever_temp"] = 36.3 + (temp*(37.0-36.3))
+            data["fever_temp"] = 36.3 + (temp * (37.0 - 36.3))
             data["symptom_difficult_to_breath"] = False
             data["symptom_sore_throat"] = False
             data["symptom_muscle_pain"] = False
