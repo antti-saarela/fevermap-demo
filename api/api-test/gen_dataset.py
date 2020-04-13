@@ -6,7 +6,7 @@ import time
 import copy
 import mysql.connector as mariadb
 
-### Configuration begin ###
+# Configuration begin
 
 # IP address of the MariaDB server to send the data to
 # For docker-based deployment issue the following command to find IP:
@@ -16,7 +16,7 @@ MARIA_DB_HOST = '172.18.0.2'
 
 # Number of submitters (users). Each users has 10-30 submissions (determined randomly)
 SUBMITTERS_QTY = 100000
-### Configuration end ###
+# Configuration end
 
 # Statistics of the generated dataset
 stats = {"total_users": 0,
@@ -103,6 +103,7 @@ def count_users(submissions, key):
     return r
 
 # Updates stats based on a list of submissions for specific user
+
 def update_stats(submissions):
     stats["total_users"] += 1
 
@@ -121,15 +122,18 @@ def update_stats(submissions):
             stats["users_" + country] += 1
 
 # Prints statistics of the generated data set
+
 def print_stats(stats):
     pprint(stats)
 
 
 # Returns random boolean value
+
 def get_rand_bool():
     return bool(getrandbits(1))
 
 # Generates the very first submission (user data)
+
 def create_user():
     user_data = {"fever_status": None,
                  "fever_temp": None,
@@ -181,6 +185,7 @@ def create_user():
 
     return user_data
 
+# Generates new submission record
 
 def submit_record(submissions, randomizations_left):
     if(randomizations_left["submissions_left"] > 0):
