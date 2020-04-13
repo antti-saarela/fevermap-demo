@@ -6,6 +6,18 @@ import time
 import copy
 import mysql.connector as mariadb
 
+### Configuration begin ###
+
+# IP address of the MariaDB server to send the data to
+# For docker-based deployment issue the following command to find IP:
+#  docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' fevermap_database_1
+# (fevermap_database_1 is container id)
+MARIA_DB_HOST = '172.18.0.2'
+
+# Number of submitters (users). Each users has 10-30 submissions (determined randomly)
+SUBMITTERS_QTY = 100000
+### Configuration end ###
+
 # Statistics of the generated dataset
 stats = {"total_users": 0,
          "users_w_fever": 0,
@@ -23,10 +35,12 @@ stats = {"total_users": 0,
          }
 
 
+# Convert time from unix timestamp to the format required by MariaDB
 def ts_to_mariadb(ts):
     return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(ts))
 
 
+# Insert user's submissions into the database
 def submit_to_db(submissions, submitter_cursor, submissions_cursor):
     # 1st: create submitter
     submitter_query = """ INSERT INTO submitters
@@ -80,6 +94,7 @@ def submit_to_db(submissions, submitter_cursor, submissions_cursor):
         submissions_cursor.execute(submission_query, submission_tuple)
 
 
+# Utility function
 def count_users(submissions, key):
     r = 0
     if(next((s for s in submissions if s[key]), {})):
@@ -88,8 +103,6 @@ def count_users(submissions, key):
     return r
 
 # Updates stats based on a list of submissions for specific user
-
-
 def update_stats(submissions):
     stats["total_users"] += 1
 
@@ -108,8 +121,6 @@ def update_stats(submissions):
             stats["users_" + country] += 1
 
 # Prints statistics of the generated data set
-
-
 def print_stats(stats):
     pprint(stats)
 
@@ -119,8 +130,6 @@ def get_rand_bool():
     return bool(getrandbits(1))
 
 # Generates the very first submission (user data)
-
-
 def create_user():
     user_data = {"fever_status": None,
                  "fever_temp": None,
@@ -212,11 +221,11 @@ def submit_record(submissions, randomizations_left):
 seed(2)
 
 mariadb_connection = mariadb.connect(
-    user='fevermap', password='feverpass', database='fevermap', host='172.18.0.2')
+    user='fevermap', password='feverpass', database='fevermap', host=MARIA_DB_HOST)
 cursor_submitter = mariadb_connection.cursor(prepared=True)
 cursor_submissions = mariadb_connection.cursor(prepared=True)
 
-for i in range(0, 100000):
+for i in range(0, SUBMITTERS_QTY):
     # Every user will have from 10 to 30 submissions
     randomizations = {"submissions_left": randint(10, 30),
                       "cough": 2,
