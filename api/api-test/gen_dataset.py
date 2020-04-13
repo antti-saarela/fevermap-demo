@@ -104,6 +104,7 @@ def count_users(submissions, key):
 
 # Updates stats based on a list of submissions for specific user
 
+
 def update_stats(submissions):
     stats["total_users"] += 1
 
@@ -123,6 +124,7 @@ def update_stats(submissions):
 
 # Prints statistics of the generated data set
 
+
 def print_stats(stats):
     pprint(stats)
 
@@ -133,6 +135,7 @@ def get_rand_bool():
     return bool(getrandbits(1))
 
 # Generates the very first submission (user data)
+
 
 def create_user():
     user_data = {"fever_status": None,
@@ -186,6 +189,7 @@ def create_user():
     return user_data
 
 # Generates new submission record
+
 
 def submit_record(submissions, randomizations_left):
     if(randomizations_left["submissions_left"] > 0):
