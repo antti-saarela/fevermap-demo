@@ -1,8 +1,30 @@
 ---
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
+  - template: License-Scanning.gitlab-ci.yml
+  - template: License-Management.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+
+# Excluded:
+#  - template: Container-Scanning.gitlab-ci.yml
+#    No containers in Gitlab registry.
+
 stages:
   - test
   - build
   - deploy
+  - validate
+
+variables:
+  DAST_WEBSITE: https://fevermap.net
+
+dast:
+  stage: validate
+
+sast:
+  stage: validate
 
 # These tests must pass for CI to pass
 mandatory tests:
