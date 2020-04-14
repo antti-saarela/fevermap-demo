@@ -122,15 +122,15 @@ class SubmissionResource(Resource):
         if not re.fullmatch(r'[A-Z]{2}', data['location_country_code']):
             errors += ('location_country_code', 'Value not two capitals')
 
-        if not re.fullmatch(r'[0-9a-z-A-Z-\. ]{4,10}', data['location_postal_code']):
+        if not re.fullmatch(r'[0-9a-z-A-Z-\. ]{3,10}', data['location_postal_code']):
             errors += ('location_postal_code', 'Incorrect characters or length')
 
-        # Allowed values from -180 to 180 with 2 decimals
-        if not re.fullmatch(r'(-)?[0-9]{1,3}\.[0-9]{2,}', data['location_lng']):
+        # Allowed values from -180 to 180 with 1 decimals
+        if not re.fullmatch(r'(-)?[0-9]{1,3}\.[0-9]{1,}', data['location_lng']):
             errors += ('location_lng', 'Incorrect form or length')
 
-        # Allowed values from -90 to 90 with 2 decimals
-        if not re.fullmatch(r'(-)?[0-9]{1,2}\.[0-9]{2,}', data['location_lat']):
+        # Allowed values from -90 to 90 with 1 decimal
+        if not re.fullmatch(r'(-)?[0-9]{1,2}\.[0-9]{1,}', data['location_lat']):
             errors += ('location_lat', 'Incorrect form or length')
 
         # Abort if validation failed
@@ -147,11 +147,11 @@ class SubmissionResource(Resource):
         # Cut precision to neares decade
         birth_year = round(int(data['birth_year']), -1)
         gender = str(data['gender'])
-        location_country_code = str(data['location_country_code'])
-        location_postal_code = str(data['location_postal_code'])
-        # Cut precision to have 3 decimals, not more
-        location_lng = round(float(data['location_lng']), 3)
-        location_lat = round(float(data['location_lat']), 3)
+        location_country_code = str(data['location_country_code']).upper()
+        location_postal_code = str(data['location_postal_code']).upper()
+        # Cut precision to have 1 decimal, not more
+        location_lng = round(float(data['location_lng']), 1)
+        location_lat = round(float(data['location_lat']), 1)
 
         # Time 1584649859812 when this was written
         if not 1584000000000 < device_id:
@@ -254,8 +254,8 @@ class SubmissionResource(Resource):
             diagnosed_covid19=diagnosed_covid19,
             location_country_code=location_country_code,
             location_postal_code=location_postal_code,
-            location_lng=location_lng,
-            location_lat=location_lat,
+            location_lng=location_lng*10,
+            location_lat=location_lat*10,
         )
 
         # Add new submission for submitter

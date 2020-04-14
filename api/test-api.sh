@@ -26,12 +26,12 @@ api_test '{
   "device_id":"1584694478111",
   "fever_status":false,
   "fever_temp":null,
-  "birth_year":"1996",
+  "birth_year":"1990",
   "gender":"F",
   "location_country_code":"FI",
   "location_postal_code":"20100",
-  "location_lng":"22.28",
-  "location_lat":"60.45"
+  "location_lng":"22.2",
+  "location_lat":"60.4"
 }'
 
 # No fever and fever_temp missing
@@ -44,7 +44,7 @@ api_test '{
   "symptom_sore_throat":null,
   "symptom_muscle_pain":null,
   "diagnosed_covid19":null,
-  "birth_year":"2001",
+  "birth_year":"2000",
   "gender":"F",
   "location_country_code":"SE",
   "location_postal_code":"7017710",
@@ -63,7 +63,7 @@ api_test '{
   "symptom_sore_throat":true,
   "symptom_muscle_pain":true,
   "diagnosed_covid19":true,
-  "birth_year":"1996",
+  "birth_year":"1990",
   "gender":"M",
   "location_country_code":"FI",
   "location_postal_code":"20100",
@@ -81,12 +81,12 @@ api_test '{
   "symptom_sore_throat":false,
   "symptom_muscle_pain":false,
   "diagnosed_covid19":false,
-  "birth_year":"2001",
+  "birth_year":"2000",
   "gender":"M",
   "location_country_code":"US",
   "location_postal_code":"70-17710",
-  "location_lng":"22.11",
-  "location_lat":"60.00"
+  "location_lng":"22.1",
+  "location_lat":"60.0"
 }'
 
 # Location Ireland, different coordinates and postal code
@@ -94,7 +94,7 @@ api_test '{
   "device_id":"1584694478555",
   "fever_status":false,
   "fever_temp":"37.0",
-  "birth_year":"1982",
+  "birth_year":"1980",
   "gender":"M",
   "symptom_difficult_to_breath":false,
   "symptom_cough":true,
@@ -103,8 +103,8 @@ api_test '{
   "diagnosed_covid19":true,
   "location_country_code":"IE",
   "location_postal_code":"H91 E2K3",
-  "location_lng":"-9.23",
-  "location_lat":"53.38"
+  "location_lng":"-9.2",
+  "location_lat":"53.3"
 }'
 
 # Yet another variation of the JSON payload general format
@@ -112,7 +112,7 @@ api_test '{
   "device_id": "1584694478666",
   "fever_status": null,
   "fever_temp": "37.3",
-  "birth_year": "1983",
+  "birth_year": "1980",
   "gender": "M",
   "location_country_code": "FI",
   "location_postal_code": "33100",
@@ -141,8 +141,8 @@ curl "$API_URL/api/v0/submit" \
     "gender":"M",
     "location_country_code":"FI",
     "location_postal_code":"02700",
-    "location_lng":"24.71",
-    "location_lat":"60.21",
+    "location_lng":"24.7",
+    "location_lat":"60.2",
     "symptom_difficult_to_breath":true,
     "symptom_cough":true,
     "symptom_sore_throat":false,
@@ -164,8 +164,8 @@ api_test '{
   "gender":"M",
   "location_country_code":"US",
   "location_postal_code":"70-17710",
-  "location_lng":"22.28",
-  "location_lat":"60.45"
+  "location_lng":"22.2",
+  "location_lat":"60.4"
 }'
 
 # Also test the stats API
