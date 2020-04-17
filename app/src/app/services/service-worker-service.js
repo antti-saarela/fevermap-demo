@@ -74,7 +74,9 @@ export default class ServiceWorkerService {
   }
 
   static sendMessage(message) {
-    ServiceWorkerService._instance.wb.messageSW(message);
+    if (ServiceWorkerService._instance) {
+      ServiceWorkerService._instance.wb.messageSW(message);
+    }
   }
 }
 
