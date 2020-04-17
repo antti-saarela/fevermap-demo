@@ -27,7 +27,7 @@ export default class NotificationService {
 
   static requestNotificationPermissions() {
     Notification.requestPermission(status => {
-      if (status === 'granted') {
+      if (status === 'granted' && NotificationService.isMessagingSupported()) {
         NotificationService.subscribeUserToTopic();
       }
     });
