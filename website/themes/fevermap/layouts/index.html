@@ -3,22 +3,16 @@
 
   <!-- On top show most recent blog posts -->
   <section class="posts-list breaker">
+    <h2>Recent posts</h2>
+
     {{ $pag := .Paginate (where .Data.Pages "Type" "news") }}
+    <ul>
     {{ range $pag.Pages }}
 
-        <a href="{{ .Permalink }}">
-          <h2 class="post-title">{{ .Title }}</h2>
-        </a>
-
-        <p class="post-meta">
-          Posted on {{ .Site.Params.dateformat | .Date.Format }}
-        </p>
-
-        <div class="post-entry">
-          {{ .Content }}
-        </div>
+      <li class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a> <small>{{ .Site.Params.dateformat | .Date.Format }}</small></li>
 
     {{ end }}
+    </ul>
   </section>
 
   <!-- Main contents promoting Fevermap -->
